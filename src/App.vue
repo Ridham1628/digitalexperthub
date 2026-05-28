@@ -22,10 +22,10 @@
 
   <AppFooter />
   <ChatWidget />
-  <Analytics />
 </template>
 
 <script setup>
+import { inject } from '@vercel/analytics'
 import AppHeader from './components/AppHeader.vue'
 import HeroSection from './components/HeroSection.vue'
 import MarqueeSection from './components/MarqueeSection.vue'
@@ -43,7 +43,9 @@ import ContactSection from './components/ContactSection.vue'
 import AppFooter from './components/AppFooter.vue'
 import ChatWidget from './components/ChatWidget.vue'
 import { useReveal } from './composables/useReveal.js'
-import { Analytics } from '@vercel/analytics/vue'
+
+// Initialize Vercel Web Analytics
+inject()
 
 useReveal()
 </script>
