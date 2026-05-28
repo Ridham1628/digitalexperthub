@@ -3,7 +3,13 @@
     <div class="wrap">
       <div class="foot-grid">
         <div class="foot-brand">
-          <a href="#" class="logo"><span class="dot">◆</span>Digital<b>Expert</b>Hub</a>
+          <a href="#" class="logo foot-logo" aria-label="Digital Expert Hub home">
+            <LogoIcon :size="36" class="logo-icon" />
+            <div class="logo-text">
+              <span class="logo-main">DIGITAL</span>
+              <span class="logo-sub">EXPERT HUB</span>
+            </div>
+          </a>
           <p>A results-driven digital marketing agency helping businesses build, grow and scale their online presence with SEO, PPC, social and content marketing.</p>
         </div>
         <div class="foot-col">
@@ -26,14 +32,9 @@
         </div>
         <div class="foot-col foot-news">
           <h4>Stay Connected</h4>
-          <input type="email" v-model="email" placeholder="Your email address">
-          <button
-            class="btn btn-lime"
-            style="width: 100%; justify-content: center"
-            type="button"
-            :disabled="subscribed"
-            @click="subscribe"
-          >
+          <input type="email" v-model="email" placeholder="Your email address" aria-label="Newsletter email">
+          <button class="btn btn-lime" style="width:100%;justify-content:center" type="button"
+            :disabled="subscribed" @click="subscribe">
             {{ subscribed ? 'Subscribed ✓' : 'Subscribe' }}
           </button>
         </div>
@@ -51,12 +52,8 @@
 
 <script setup>
 import { ref } from 'vue'
-
+import LogoIcon from './LogoIcon.vue'
 const email = ref('')
 const subscribed = ref(false)
-
-function subscribe() {
-  email.value = ''
-  subscribed.value = true
-}
+function subscribe() { email.value = ''; subscribed.value = true }
 </script>
