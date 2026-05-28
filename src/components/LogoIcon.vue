@@ -1,29 +1,37 @@
 <template>
-  <svg :width="size" viewBox="0 0 52 58" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <!-- Left vertical bar -->
-    <rect x="0" y="0" width="13" height="58" rx="2"/>
-    <!-- Top horizontal bar -->
-    <rect x="13" y="0" width="23" height="11" rx="2"/>
-    <!-- Bottom horizontal bar -->
-    <rect x="13" y="47" width="23" height="11" rx="2"/>
-    <!-- Upper-right corner -->
-    <rect x="34" y="11" width="11" height="11" rx="2"/>
-    <!-- Right vertical -->
-    <rect x="42" y="22" width="10" height="14" rx="2"/>
-    <!-- Lower-right corner -->
-    <rect x="34" y="36" width="11" height="11" rx="2"/>
-    <!-- Circuit pad — top-left cluster -->
-    <rect x="1" y="1" width="7" height="7" rx="1.5" opacity="0.5"/>
-    <rect x="9" y="1" width="4" height="4" rx="1" opacity="0.35"/>
-    <rect x="1" y="9" width="4" height="4" rx="1" opacity="0.3"/>
-    <!-- Circuit pad — bottom-left cluster -->
-    <rect x="1" y="50" width="7" height="7" rx="1.5" opacity="0.5"/>
-    <rect x="9" y="53" width="4" height="4" rx="1" opacity="0.35"/>
-    <rect x="1" y="45" width="4" height="4" rx="1" opacity="0.3"/>
-    <!-- Inner circuit traces -->
-    <rect x="16" y="17" width="6" height="6" rx="1" opacity="0.22"/>
-    <rect x="16" y="35" width="6" height="6" rx="1" opacity="0.22"/>
-    <rect x="25" y="24" width="5" height="10" rx="1" opacity="0.14"/>
+  <svg
+    :width="size"
+    :height="size"
+    viewBox="0 0 56 62"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <!-- D outline: vertical left bar + semicircle right -->
+    <path
+      d="M 7,4 L 7,58 L 22,58 A 27,27 0 0 0 22,4 Z"
+      stroke="currentColor"
+      stroke-width="7"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+      fill="none"
+    />
+
+    <!-- Circuit traces inside D — 3-row staircase pattern -->
+
+    <!-- Row 1: 1 square pad + horizontal bar -->
+    <rect x="15" y="16" width="8" height="8" rx="1.5" fill="currentColor"/>
+    <rect x="25" y="18.5" width="15" height="3" rx="1" fill="currentColor"/>
+
+    <!-- Row 2: 2 square pads + shorter bar -->
+    <rect x="15" y="27" width="8" height="8" rx="1.5" fill="currentColor"/>
+    <rect x="25" y="27" width="8" height="8" rx="1.5" fill="currentColor"/>
+    <rect x="35" y="29.5" width="10" height="3" rx="1" fill="currentColor"/>
+
+    <!-- Row 3: 3 square pads only (staircase base) -->
+    <rect x="15" y="38" width="8" height="8" rx="1.5" fill="currentColor"/>
+    <rect x="25" y="38" width="8" height="8" rx="1.5" fill="currentColor"/>
+    <rect x="35" y="38" width="8" height="8" rx="1.5" fill="currentColor"/>
   </svg>
 </template>
 
