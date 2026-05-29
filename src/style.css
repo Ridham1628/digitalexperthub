@@ -71,22 +71,32 @@ header {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
-  /* Account for iOS notch / dynamic island safe area */
-  padding-top: env(safe-area-inset-top, 0px);
-  height: calc(100px + env(safe-area-inset-top, 0px));
   display: flex;
-  align-items: stretch;
   flex-direction: column;
-  transition: height .4s cubic-bezier(.4,0,.2,1),
-              padding-top .4s cubic-bezier(.4,0,.2,1),
-              background .4s, backdrop-filter .4s, box-shadow .4s;
+  /* iOS safe-area spacer via ::before — background covers it automatically */
+  background: transparent;
+  transition: background .4s, backdrop-filter .4s, box-shadow .4s;
 }
+
+/* Safe-area spacer: pushes nav below the notch/Dynamic Island on iOS */
+header::before {
+  content: '';
+  display: block;
+  height: env(safe-area-inset-top, 0px);
+  flex-shrink: 0;
+}
+
 header.scrolled {
-  height: calc(70px + env(safe-area-inset-top, 0px));
   background: rgba(11,15,12,.92);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   box-shadow: 0 1px 0 rgba(255,255,255,.08), 0 8px 32px rgba(0,0,0,.24);
+}
+
+/* On mobile: always dark — prevents content bleeding through transparent header */
+@media (max-width: 860px) {
+  header { background: var(--ink) !important; }
+  header.scrolled { background: rgba(11,15,12,.97) !important; }
 }
 
 .nav-wrap {
@@ -94,7 +104,14 @@ header.scrolled {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  height: 100%;
+  /* Explicit height — never uses height:100% so padding-top overflow can't happen */
+  height: 100px;
+  flex-shrink: 0;
+  transition: height .4s cubic-bezier(.4,0,.2,1);
+}
+
+header.scrolled .nav-wrap {
+  height: 70px;
 }
 
 /* Logo */
@@ -236,8 +253,8 @@ header.scrolled {
 }
 .nav-overlay.open { opacity: 1; }
 
-/* hero */
-.hero { background: var(--ink); color: var(--paper); padding: calc(170px + env(safe-area-inset-top, 0px)) 0 0; overflow: hidden; }
+/* hero — top padding = nav height (100px) + safe-area + extra breathing room */
+.hero { background: var(--ink); color: var(--paper); padding: calc(140px + env(safe-area-inset-top, 0px)) 0 0; overflow: hidden; }
 .hero-inner { text-align: center; }
 .hero::before { content: ""; position: absolute; top: -10%; right: -5%; width: 680px; height: 680px; background: radial-gradient(circle, rgba(200,242,80,.16), transparent 62%); filter: blur(20px); pointer-events: none; }
 .hero::after { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(circle at 50% 30%, #000, transparent 75%); pointer-events: none; }
@@ -629,12 +646,12 @@ footer::before {
   .burger { display: flex; }
   .nav-overlay { display: block; }
 
-  /* Header height stays consistent */
-  header { height: calc(72px + env(safe-area-inset-top, 0px)); }
-  header.scrolled { height: calc(60px + env(safe-area-inset-top, 0px)); }
+  /* Nav height on tablet/mobile */
+  .nav-wrap { height: 68px; }
+  header.scrolled .nav-wrap { height: 58px; }
 
   /* Sections */
-  .hero { padding-top: calc(90px + env(safe-area-inset-top, 0px)); }
+  .hero { padding-top: calc(88px + env(safe-area-inset-top, 0px)); }
   .usp-grid, .feat-grid, .faq-layout, .contact-layout { grid-template-columns: 1fr; }
   .ben-layout { grid-template-columns: 1fr; }
   .faq-layout { gap: 34px; }
@@ -657,14 +674,14 @@ footer::before {
   .sec { padding: 68px 0; }
 
   /* Nav */
-  header { height: calc(66px + env(safe-area-inset-top, 0px)); }
-  header.scrolled { height: calc(56px + env(safe-area-inset-top, 0px)); }
+  .nav-wrap { height: 62px; }
+  header.scrolled .nav-wrap { height: 54px; }
   .logo-main { font-size: 1.05rem; }
   .logo-sub { font-size: .5rem; }
   .nav-call-mobile { padding: .55em .85em; font-size: .8rem; gap: .35em; }
 
   /* Hero */
-  .hero { padding-top: calc(84px + env(safe-area-inset-top, 0px)); }
+  .hero { padding-top: calc(82px + env(safe-area-inset-top, 0px)); }
   .hero h1 { font-size: clamp(2.1rem, 8.5vw, 2.8rem); }
   .hero p.lead { font-size: .98rem; }
   .hero-actions { flex-direction: column; gap: 12px; }
