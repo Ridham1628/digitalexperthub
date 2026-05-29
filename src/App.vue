@@ -22,7 +22,6 @@
 
   <AppFooter />
   <ChatWidget />
-  <Analytics />
 </template>
 
 <script setup>
@@ -43,7 +42,8 @@ import ContactSection from './components/ContactSection.vue'
 import AppFooter from './components/AppFooter.vue'
 import ChatWidget from './components/ChatWidget.vue'
 import { useReveal } from './composables/useReveal.js'
-import { Analytics } from '@vercel/analytics/vue'
+import { inject } from '@vercel/analytics'
+inject()
 
 useReveal()
 </script>
